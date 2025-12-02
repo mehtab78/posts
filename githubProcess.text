@@ -1,0 +1,212 @@
+Totally fair, that GitHub bit was a lot. Let’s go slow and step-by-step and pretend you’re starting from almost zero.
+
+I’ll assume you already have:
+
+index.html (home page)
+
+blog.html (blog page I gave you)
+
+The goal:
+When someone opens blog.html, it should fetch a list of posts from GitHub and show them.
+
+🧩 Big Picture
+
+You will:
+
+Create (or use) a GitHub repo.
+
+Add your blog post files there (.html files).
+
+Add a posts.json file that lists your posts.
+
+Copy the raw URL of posts.json and paste it into blog.html.
+
+After that, blog.html will handle the rest.
+
+1️⃣ Create / pick your GitHub repo
+
+If you already have a repo you want to use, you can skip to step 2.
+
+Go to github.com and log in.
+
+Click the “+” in the top-right → “New repository”.
+
+Name it something like: amrit-blog
+
+Visibility: choose Public (important, otherwise the browser can’t fetch files).
+
+Click Create repository.
+
+Now you have an empty repo.
+
+2️⃣ Create a posts folder and blog files
+
+We’ll store each blog post as an HTML file.
+
+Inside your repo on GitHub, click “Add file” → “Create new file”.
+
+In the filename box, type:
+posts/things-i-believe.html
+(this automatically creates a posts folder)
+
+In the big text area, paste your blog content, for example:
+
+<h2>Things I Believe</h2>
+<p>these are some things I believe in...</p>
+<p>you can style and structure this however you want.</p>
+
+
+Scroll down → Commit changes.
+
+Repeat this for more posts, e.g.:
+
+posts/how-i-got-into-coding.html
+
+posts/another-post.html
+
+Each file = one blog post.
+
+3️⃣ Create posts.json (the index of your posts)
+
+This file tells blog.html:
+
+“Here are all my posts and where to load them from.”
+
+In your repo, click “Add file” → “Create new file”.
+
+Name the file exactly:
+posts.json
+
+Put this inside (edit the URLs in the next step):
+
+[
+  {
+    "title": "Things I Believe",
+    "url": "RAW_URL_FOR_things-i-believe.html"
+  },
+  {
+    "title": "How I Got Into Coding",
+    "url": "RAW_URL_FOR_how-i-got-into-coding.html"
+  }
+]
+
+
+We’ll fill in those RAW_URL_FOR_... values next.
+
+Click Commit changes.
+
+4️⃣ Get the raw URL for each post file
+
+You need the direct link to each HTML file’s raw content.
+
+For each file (things-i-believe.html, etc.):
+
+Go to your repo → click on posts/things-i-believe.html.
+
+On the file page, click the “Raw” button.
+
+Your browser now shows only the HTML text.
+Copy the full URL from the address bar.
+It will look like:
+
+https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/posts/things-i-believe.html
+
+
+Go back to posts.json (edit it).
+
+Replace RAW_URL_FOR_things-i-believe.html with that URL, like:
+
+[
+  {
+    "title": "Things I Believe",
+    "url": "https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/posts/things-i-believe.html"
+  },
+  {
+    "title": "How I Got Into Coding",
+    "url": "https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/posts/how-i-got-into-coding.html"
+  }
+]
+
+
+Commit changes.
+
+Do this for every post you want listed.
+
+5️⃣ Get the raw URL for posts.json
+
+Now we do the same thing but for posts.json itself:
+
+In your repo, click posts.json.
+
+Click “Raw”.
+
+Copy the URL from the address bar.
+It will look like:
+
+https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/posts.json
+
+
+Keep this URL ready.
+
+6️⃣ Paste that URL into blog.html
+
+Open your blog.html file (the one I gave you) and find this line:
+
+const GITHUB_POSTS_INDEX_URL =
+  "https://raw.githubusercontent.com/USERNAME/REPO/BRANCH/posts.json";
+
+
+Replace the whole string with the raw URL from step 5, for example:
+
+const GITHUB_POSTS_INDEX_URL =
+  "https://raw.githubusercontent.com/amritwt/amrit-blog/main/posts.json";
+
+
+(Your username/repo/branch might be different — just paste exactly what you copied.)
+
+Save/upload this updated blog.html to your hosting (or into the same GitHub Pages repo if that’s how you’re hosting the site).
+
+7️⃣ Test it
+
+Open blog.html in the browser (via your hosting, or GitHub Pages, or a local server).
+
+You should see:
+
+Heading: “blog”
+
+Under that, a list of titles from posts.json.
+
+When you click a title:
+
+The content from the corresponding .html file on GitHub should load in the “full blog” area.
+
+If you see errors like “Could not load blog list from GitHub,” it usually means:
+
+The GITHUB_POSTS_INDEX_URL is wrong, or
+
+The repo is private, or
+
+posts.json is invalid JSON (like missing commas or quotes).
+
+8️⃣ In the future: how to add a new blog post
+
+Whenever you want to publish a new blog:
+
+Add a new file in posts/
+Example: posts/new-idea.html
+
+Write your HTML content in it → commit.
+
+Click Raw, copy the URL.
+
+Add a new entry into posts.json:
+
+{
+  "title": "My New Idea",
+  "url": "https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/posts/new-idea.html"
+}
+
+
+Commit posts.json.
+
+That’s it. blog.html will automatically show the new title.

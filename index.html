@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mehtab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="20 year old something guy" />
+  <style>
+    :root {
+      /* DARK THEME DEFAULTS */
+      --bg: #020617;
+      --bg-card: #020617;
+      --bg-accent: #111827;
+      --fg: #f9fafb;
+      --muted: #9ca3af;
+      --border: rgba(255,255,255,0.1);
+      --primary: #22c55e;
+      --shadow-soft: 0 0 0 1px rgba(0,0,0,.03), 0 2px 4px rgba(0,0,0,.05), 0 12px 24px rgba(0,0,0,.05);
+      --radius-lg: 0.5rem;
+      --radius-full: 9999px;
+      --tooltip-bg: #020617;
+    }
+
+    /* LIGHT THEME: overrides the variables only (design preserved) */
+    .light-theme {
+      --bg: #f9fafb;
+      --bg-card: #ffffff;
+      --bg-accent: #e5e7eb;
+      --fg: #020617;
+      --muted: #4b5563;
+      --border: rgba(15,23,42,0.1);
+      --primary: #16a34a;
+      --tooltip-bg: #111827; /* keep tooltip dark for contrast */
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+    }
+
+    main {
+      width: 100%;
+      max-width: 42rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    section {
+      width: 100%;
+    }
+
+    h1, h2, h3 {
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    h1 {
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    @media (min-width: 640px) {
+      h1 {
+        font-size: 3rem;
+      }
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+
+    a {
+      color: #60a5fa;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .hero-wrapper {
+      max-width: 42rem;
+      margin: 0 auto;
+    }
+
+    .hero-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      flex: 1;
+    }
+
+    .hero-age-text {
+      max-width: 600px;
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .avatar-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .avatar-circle {
+      position: relative;
+      width: 7rem;
+      height: 7rem;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .avatar-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* About */
+    .prose {
+      color: var(--muted);
+      font-size: 0.875rem;
+    }
+
+    .prose p + p {
+      margin-top: 0.4rem;
+    }
+
+    /* Work / Education cards */
+    .stack-vertical {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      min-height: 0;
+    }
+
+    .resume-card-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .resume-card {
+      display: flex;
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 0.5rem 0.75rem;
+      transition: background 0.15s ease, transform 0.15s ease,
+        box-shadow 0.15s ease, border-color 0.15s ease;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    .light-theme .resume-card {
+      border-color: rgba(15,23,42,0.06);
+      box-shadow: 0 4px 20px rgba(15,23,42,0.15);
+    }
+
+    .resume-card:hover {
+      background: #020617;
+      border-color: rgba(255,255,255,0.18);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+    }
+
+    .light-theme .resume-card:hover {
+      background: #e5e7eb;
+      border-color: rgba(15,23,42,0.18);
+      box-shadow: 0 10px 40px rgba(15,23,42,0.25);
+    }
+
+    .resume-logo-col {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+    }
+
+    .logo-circle {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #020617;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .light-theme .logo-circle {
+      background: #f9fafb;
+    }
+
+    .logo-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .resume-main-col {
+      flex: 1;
+      margin-left: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.25rem;
+    }
+
+    .resume-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .resume-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.15rem;
+    }
+
+    .resume-title-arrow {
+      font-size: 0.75rem;
+      opacity: 0;
+      transform: translateX(0);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .resume-card:hover .resume-title-arrow {
+      opacity: 1;
+      transform: translateX(4px);
+    }
+
+    .resume-period {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .resume-subtitle {
+      font-size: 0.75rem;
+      color: var(--fg);
+    }
+
+    .resume-description {
+      margin-top: 0.25rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      max-width: 36rem;
+    }
+
+    /* Newsletter */
+    .newsletter-subtitle {
+      font-size: 0.875rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (min-width: 640px) {
+      .newsletter-subtitle {
+        text-align: left;
+      }
+    }
+
+    .newsletter-form {
+      margin-top: 0.75rem;
+      margin-bottom: 0.75rem;
+      max-width: 24rem;
+      margin-left: auto;
+      margin-right: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    @media (min-width: 640px) {
+      .newsletter-form {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+
+    .newsletter-input {
+      flex: 1;
+      height: 2.25rem;
+      border-radius: 0.375rem;
+      border: 1px solid rgba(148,163,184,0.6);
+      background: transparent;
+      padding: 0 0.75rem;
+      font-size: 0.875rem;
+      color: var(--fg);
+      outline: none;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+    }
+
+    .newsletter-input::placeholder {
+      color: #6b7280;
+    }
+
+    .light-theme .newsletter-input::placeholder {
+      color: #9ca3af;
+    }
+
+    .newsletter-input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 1px #3b82f6;
+    }
+
+    .newsletter-button {
+      height: 2.25rem;
+      padding: 0 1rem;
+      border-radius: 0.375rem;
+      border: 1px solid rgba(209,213,219,0.6);
+      background: #f9fafb;
+      color: #111827;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s ease, transform 0.1s ease,
+        box-shadow 0.1s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .newsletter-button:hover {
+      background: #e5e7eb;
+      transform: translateY(-0.5px);
+    }
+
+    /* Skills */
+    .skills-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+    }
+
+    .skill-pill {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 0.125rem 0.6rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: var(--primary);
+      color: #022c22;
+      box-shadow: 0 2px 8px rgba(34,197,94,0.35);
+      border: 1px solid rgba(0,0,0,0.18);
+      cursor: default;
+      transition: transform 0.12s ease, box-shadow 0.12s ease,
+        background 0.12s ease;
+    }
+
+    .skill-pill:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(34,197,94,0.4);
+      background: #22c55e;
+    }
+
+    /* Contact */
+    .contact-wrapper {
+      display: grid;
+      place-items: center;
+      padding: 3rem 1rem;
+      text-align: center;
+    }
+
+    .contact-chip {
+      display: inline-block;
+      background: #f9fafb;
+      color: #020617;
+      border-radius: 999px;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.875rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .contact-text {
+      max-width: 37.5rem;
+      margin: 0 auto;
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .contact-text a {
+      color: #3b82f6;
+      text-decoration: none;
+    }
+
+    .contact-text a:hover {
+      text-decoration: underline;
+    }
+
+    /* Dock */
+    .dock-shell {
+      pointer-events: none;
+      position: fixed;
+      inset-inline: 0;
+      bottom: 0;
+      z-index: 30;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      margin-bottom: 1rem;
+      max-height: 3.5rem;
+    }
+
+    .dock-blur {
+      position: fixed;
+      bottom: 0;
+      inset-inline: 0;
+      height: 4rem;
+      background: radial-gradient(ellipse at bottom,
+        rgba(15,23,42,1) 0%,
+        rgba(15,23,42,0) 70%);
+      backdrop-filter: blur(16px);
+    }
+
+    .light-theme .dock-blur {
+      background: radial-gradient(ellipse at bottom,
+        rgba(209,213,219,1) 0%,
+        rgba(209,213,219,0) 70%);
+    }
+
+    .dock-bar {
+      pointer-events: auto;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 0.25rem 0.25rem;
+      border-radius: 999px;
+      background: #020617;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: var(--shadow-soft);
+      gap: 0.25rem;
+    }
+
+    .light-theme .dock-bar {
+      background: #e5e7eb;
+      border: 1px solid rgba(15,23,42,0.12);
+    }
+
+    .dock-group {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .dock-icon-wrap {
+      position: relative; /* for tooltip */
+      display: flex;
+      width: 40px;
+      height: 40px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+    }
+
+    .dock-icon {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--fg);
+      text-decoration: none;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+
+    .dock-icon svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .dock-icon:hover {
+      background: #111827;
+      transform: translateY(-3px) scale(1.05);
+    }
+
+    .light-theme .dock-icon:hover {
+      background: #d1d5db;
+    }
+
+    .dock-divider {
+      width: 1px;
+      height: 100%;
+      background: rgba(148,163,184,0.4);
+      margin: 0 0.25rem;
+    }
+
+    .dock-theme-wrap {
+      position: relative; /* for tooltip */
+      display: flex;
+      width: 40px;
+      height: 40px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dock-theme-btn {
+      height: 36px;
+      width: 36px;
+      border-radius: 999px;
+      border: none;
+      background: #111827;
+      color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .light-theme .dock-theme-btn {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .dock-theme-btn:hover {
+      background: #1f2937;
+      transform: translateY(-2px);
+    }
+
+    .light-theme .dock-theme-btn:hover {
+      background: #d1d5db;
+    }
+
+    /* Tooltips for dock icons */
+    .dock-icon-wrap::after,
+    .dock-theme-wrap::after {
+      content: attr(data-label);
+      position: absolute;
+      left: 50%;
+      bottom: 52px;
+      transform: translateX(-50%) translateY(4px);
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--tooltip-bg);
+      color: #e5e7eb;
+      font-size: 0.65rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      border: 1px solid rgba(148,163,184,0.5);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+
+    .dock-icon-wrap::before,
+    .dock-theme-wrap::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 44px;
+      transform: translateX(-50%) translateY(4px);
+      border-width: 5px;
+      border-style: solid;
+      border-color: var(--tooltip-bg) transparent transparent transparent;
+      opacity: 0;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      pointer-events: none;
+    }
+
+    .dock-icon-wrap:hover::after,
+    .dock-icon-wrap:hover::before,
+    .dock-theme-wrap:hover::after,
+    .dock-theme-wrap:hover::before {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 600px) {
+      .dock-icon-wrap::after,
+      .dock-theme-wrap::after {
+        bottom: 46px;
+      }
+      .dock-icon-wrap::before,
+      .dock-theme-wrap::before {
+        bottom: 38px;
+      }
+    }
+
+    /* Utilities */
+    .sm-text-left {
+      text-align: center;
+    }
+
+    @media (min-width: 640px) {
+      .sm-text-left {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-wrapper">
+        <div class="hero-row">
+          <div class="hero-left">
+            <div>
+              <span style="opacity: 1; filter: blur(0); transform: translateY(-8px); display:inline-block;">
+                <h1>hi, Mehtab here</h1>
+              </span>
+            </div>
+          
+          </div>
+
+          <div class="avatar-wrapper" style="opacity: 1; filter: blur(0); transform: translateY(-6px);">
+            <span class="avatar-circle">
+              <!-- replace src with your actual image path -->
+              <img src="./mehtab1.png" alt="Mehtab" />
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div style="opacity: 1; filter: blur(0); transform: translateY(-6px);">
+        <h2>about</h2>
+      </div>
+      <div style="opacity: 1; filter: blur(0); transform: translateY(-6px);">
+        <div class="prose">
+          <p>tldr; learnt by hacking around on the internet.</p>
+          <p>i like technology and deep science. they make a dent in the universe.</p>
+          <p>i write code and make zero mrr apps.</p>
+        
+        </div>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section id="work">
+      <div class="stack-vertical">
+        <div style="opacity: 1; filter: blur(0); transform: translateY(-6px);">
+          <h2>cool places I worked at</h2>
+        </div>
+
+        <!-- cracked devs -->
+        <div style="opacity: 1; filter: blur(0); transform: translateY(-6px);">
+          <a class="resume-card-link" href="https://crackeddevs.com/">
+            <div class="resume-card">
+              <div class="resume-logo-col">
+                <span class="logo-circle">
+                  <img src="/cd.png" alt="cracked devs" />
+                </span>
+              </div>
+              <div class="resume-main-col">
+                <div class="resume-top-row">
+                  <h3 class="resume-title">
+                    cracked devs
+                    <span class="resume-title-arrow">›</span>
+                  </h3>
+                  <div class="resume-period">august 2025 - present</div>
+                </div>
+                <div class="resume-subtitle">
+                  software engineer | fulltime
+                </div>
+                <div class="resume-description">
+                  making apps at this studio!
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- zero -->
+        <div style="opacity: 1; filter: blur(0); transform: translateY(-6px);">
+          <a class="resume-card-link" href="https://0.email/">
+            <div class="resume-card">
+              <div class="resume-logo-col">
+                <span class="logo-circle">
+                  <img src="/zero.png" alt="zero" />
+                </span>
+              </div>
+              <div class="resume-main-col">
+                <div class="resume-top-row">
+                  <h3 class="resume-title">
+                    zero
+                    <span class="resume-title-arrow">›</span>
+                  </h3>
+                  <div class="resume-period">june 2025 - august 2025</div>
+                </div>
+                <div class="resume-subtitle">
+                  software engineer | fulltime
+                </div>
+                <div class="resume-description">
+                  let ai handle your email.
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- GSoC -->
+        <div style="opacity: 1; filter: blur(0); transform: translateY(-6px);">
+          <a class="resume-card-link" href="https://summerofcode.withgoogle.com/">
+            <div class="resume-card">
+              <div class="resume-logo-col">
+                <span class="logo-circle">
+                  <img src="/gsoc.png" alt="google summer of code" />
+                </span>
+              </div>
+              <div class="resume-main-col">
+                <div class="resume-top-row">
+                  <h3 class="resume-title">
+                    google summer of code
+                    <span class="resume-title-arrow">›</span>
+                  </h3>
+                  <div class="resume-period">may 2025 - july 2025</div>
+                </div>
+                <div class="resume-subtitle">
+                  contributor under google deepmind
+                </div>
+                <div class="resume-description">
+                  evaluating gemini on an open-source benchmark.
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- cal.com -->
+        <div style="opacity: 1; filter: blur(0); transform: translateY(-6px);">
+          <a class="resume-card-link" href="https://cal.com/">
+            <div class="resume-card">
+              <div class="resume-logo-col">
+                <span class="logo-circle">
+                  <img src="/cal.png" alt="cal.com" />
+                </span>
+              </div>
+              <div class="resume-main-col">
+                <div class="resume-top-row">
+                  <h3 class="resume-title">
+                    cal.com
+                    <span class="resume-title-arrow">›</span>
+                  </h3>
+                  <div class="resume-period">february 2025 - may 2025</div>
+                </div>
+                <div class="resume-subtitle">
+                  software engineer | intern
+                </div>
+                <div class="resume-description">
+                  the best way to schedule meetings.
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- superteam -->
+        <div style="opacity: 1; filter: blur(0); transform: translateY(-6px);">
+          <a class="resume-card-link" href="https://superteam.fun/">
+            <div class="resume-card">
+              <div class="resume-logo-col">
+                <span class="logo-circle">
+                  <img src="/superteam.png" alt="superteam, solana foundation" />
+                </span>
+              </div>
+              <div class="resume-main-col">
+                <div class="resume-top-row">
+                  <h3 class="resume-title">
+                    superteam, solana foundation
+                    <span class="resume-title-arrow">›</span>
+                  </h3>
+                  <div class="resume-period">november 2024 - september 2025</div>
+                </div>
+                <div class="resume-subtitle">
+                  member | grant recipient
+                </div>
+                <div class="resume-description">
+                  received a $3000 grant from the solana foundation for solving inheritance through an escrow contract.
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+      <div class="stack-vertical">
+        <div style="opacity: 1; filter: blur(0); transform: translateY(-6px);">
+          <h2>education</h2>
+        </div>
+
+        <div style="opacity: 1; filter: blur(0); transform: translateY(-6px);">
+          <a class="resume-card-link" href="https://www.linkedin.com/in/mehtabahmad-s7">
+            <div class="resume-card">
+              <div class="resume-logo-col">
+                <span class="logo-circle">
+                  <img src="/mu.png" alt="mumbai university" />
+                </span>
+              </div>
+              <div class="resume-main-col">
+                <div class="resume-top-row">
+                  <h3 class="resume-title">
+                    mumbai university
+                    <span class="resume-title-arrow">›</span>
+                  </h3>
+                  <div class="resume-period">2022 - 2025 (dropped out)</div>
+                </div>
+                <div class="resume-subtitle">
+                  electronics &amp; telecommunication
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section id="newsletter">
+      <div style="opacity: 1; filter: blur(0); transform: translateY(-6px);">
+        <h2 class="sm-text-left">stay updated</h2>
+      </div>
+      <div style="opacity: 1; filter: blur(0); transform: translateY(-6px);">
+        <p class="newsletter-subtitle">
+          subscribe to my email list
+        </p>
+      </div>
+      <div style="opacity: 1; filter: blur(0); transform: translateY(-6px);">
+        <form class="newsletter-form" onsubmit="return false;">
+          <input
+            type="email"
+            class="newsletter-input"
+            placeholder="Enter your email"
+            required
+          />
+          <button type="submit" class="newsletter-button">
+            Subscribe
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="stack-vertical">
+        <div style="opacity: 1; filter: blur(0); transform: translateY(-6px);">
+          <h2>skills</h2>
+        </div>
+        <div class="skills-pills">
+          <div style="opacity: 1; filter: blur(0); transform: translateY(-6px);">
+            <span class="skill-pill">react</span>
+          </div>
+          <div style="opacity: 1; filter: blur(0); transform: translateY(-6px);">
+            <span class="skill-pill">next.js</span>
+          </div>
+          <div style="opacity: 1; filter: blur(0); transform: translateY(-6px);">
+            <span class="skill-pill">typescript</span>
+          </div>
+          <div style="opacity: 1; filter: blur(0); transform: translateY(-6px);">
+            <span class="skill-pill">python</span>
+          </div>
+          <div style="opacity: 1; filter: blur(0); transform: translateY(-6px);">
+            <span class="skill-pill">postgres</span>
+          </div>
+          <div style="opacity: 1; filter: blur(0); transform: translateY(-6px);">
+            <span class="skill-pill">shitposting</span>
+          </div>
+          <div style="opacity: 1; filter: blur(0); transform: translateY(-6px);">
+            <span class="skill-pill">can do hundred pushups</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="contact-wrapper">
+        <div style="opacity: 1; filter: blur(0); transform: translateY(-6px);">
+          <div class="contact-chip"></div>
+          <p class="contact-text">
+            say hello on
+            <a href="https://x.com/amritwt">𝕏</a>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Dock (bottom navigation) -->
+  <div class="dock-shell">
+    <div class="dock-blur"></div>
+    <div class="dock-bar">
+      <div class="dock-group">
+        <div class="dock-icon-wrap" data-label="Home">
+          <a class="dock-icon" href="index.html">
+            <!-- Home icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+          </a>
+        </div>
+
+        <div class="dock-icon-wrap" data-label="Blog">
+          <a class="dock-icon" href="blog.html">
+            <!-- Notebook icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 6h4"></path>
+              <path d="M2 10h4"></path>
+              <path d="M2 14h4"></path>
+              <path d="M2 18h4"></path>
+              <rect width="16" height="20" x="4" y="2" rx="2"></rect>
+              <path d="M16 2v20"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="dock-divider"></div>
+
+      <div class="dock-group">
+        <div class="dock-icon-wrap" data-label="GitHub">
+          <a class="dock-icon" href="https://github.com/mehtab78" target="_blank">
+            GH
+          </a>
+        </div>
+        <div class="dock-icon-wrap" data-label="LinkedIn">
+          <a class="dock-icon" href="https://www.linkedin.com/in/mehtabahmad-s7" target="_blank">
+            in
+          </a>
+        </div>
+        <div class="dock-icon-wrap" data-label="X (Twitter)">
+          <a class="dock-icon" href="https://x.com/amritwt" target="_blank">
+            X
+          </a>
+        </div>
+        <div class="dock-icon-wrap" data-label="Email">
+          <a class="dock-icon" href="mailto:mehtab7@proton.me">
+            <!-- Mail icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="dock-divider"></div>
+
+      <div class="dock-theme-wrap" data-label="Theme">
+        <button
+          class="dock-theme-btn"
+          type="button"
+          onclick="toggleTheme()"
+          aria-label="Toggle theme"
+        >
+          ☾
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const THEME_STORAGE_KEY = "mehtab-theme";
+
+    function applyTheme(theme) {
+      const root = document.documentElement;
+      const btn = document.querySelector(".dock-theme-btn");
+
+      if (theme === "light") {
+        root.classList.add("light-theme");
+        if (btn) {
+          btn.textContent = "☼";
+          btn.setAttribute("aria-label", "Switch to dark theme");
+        }
+      } else {
+        root.classList.remove("light-theme");
+        if (btn) {
+          btn.textContent = "☾";
+          btn.setAttribute("aria-label", "Switch to light theme");
+        }
+      }
+
+      try {
+        localStorage.setItem(THEME_STORAGE_KEY, theme);
+      } catch (e) {
+        // ignore storage errors
+      }
+    }
+
+    function toggleTheme() {
+      const isLight = document.documentElement.classList.contains("light-theme");
+      applyTheme(isLight ? "dark" : "light");
+    }
+
+    (function initTheme() {
+      let stored = null;
+      try {
+        stored = localStorage.getItem(THEME_STORAGE_KEY);
+      } catch (e) {
+        stored = null;
+      }
+
+      if (stored === "light" || stored === "dark") {
+        applyTheme(stored);
+      } else {
+        const prefersDark =
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches;
+        applyTheme(prefersDark ? "dark" : "light");
+      }
+    })();
+  </script>
+</body>
+</html>

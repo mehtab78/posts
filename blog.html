@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Blog – Mehtab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Blog – posts by Mehtab" />
+  <style>
+    :root {
+      /* DARK THEME DEFAULTS */
+      --bg: #020617;
+      --bg-card: #020617;
+      --bg-accent: #111827;
+      --fg: #f9fafb;
+      --muted: #9ca3af;
+      --border: rgba(255,255,255,0.1);
+      --primary: #22c55e;
+      --shadow-soft: 0 0 0 1px rgba(0,0,0,.03), 0 2px 4px rgba(0,0,0,.05), 0 12px 24px rgba(0,0,0,.05);
+      --radius-lg: 0.5rem;
+      --radius-full: 9999px;
+      --tooltip-bg: #020617;
+    }
+
+    /* LIGHT THEME: overrides the variables only (design preserved) */
+    .light-theme {
+      --bg: #f9fafb;
+      --bg-card: #ffffff;
+      --bg-accent: #e5e7eb;
+      --fg: #020617;
+      --muted: #4b5563;
+      --border: rgba(15,23,42,0.1);
+      --primary: #16a34a;
+      --tooltip-bg: #111827; /* keep tooltip dark for contrast */
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+    }
+
+    main {
+      width: 100%;
+      max-width: 42rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    section {
+      width: 100%;
+    }
+
+    h1, h2, h3 {
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    h1 {
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    @media (min-width: 640px) {
+      h1 {
+        font-size: 3rem;
+      }
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+
+    a {
+      color: #60a5fa;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Shared styles from home – keep design consistent */
+    .hero-wrapper {
+      max-width: 42rem;
+      margin: 0 auto;
+    }
+
+    .hero-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      flex: 1;
+    }
+
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .prose {
+      color: var(--muted);
+      font-size: 0.875rem;
+    }
+
+    .prose p + p {
+      margin-top: 0.4rem;
+    }
+
+    .stack-vertical {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      min-height: 0;
+    }
+
+    /* Blog-specific layout */
+    .blog-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .blog-header-subtitle {
+      font-size: 0.875rem;
+      color: var(--muted);
+      margin-top: 0.4rem;
+    }
+
+    .blog-columns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .blog-list {
+      flex: 1 1 12rem;
+      max-width: 14rem;
+    }
+
+    /* RIGHT BOX – now hidden, but kept for structure */
+    .blog-content {
+      flex: 2 1 18rem;
+      min-height: 12rem;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-lg);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      overflow: hidden;
+      display: none; /* HIDE this big box */
+    }
+
+    .blog-list-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .blog-list-items {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .blog-list-item {
+      font-size: 0.75rem;
+      padding: 0.35rem 0.5rem;
+      border-radius: 0.35rem;
+      cursor: pointer;
+      color: var(--muted);
+      border: 1px solid transparent;
+      background: transparent;
+      transition: background 0.15s ease, color 0.15s ease,
+        border-color 0.15s ease, transform 0.12s ease;
+      text-align: left;
+    }
+
+    .blog-list-item:hover {
+      background: var(--bg-accent);
+      color: var(--fg);
+      border-color: var(--border);
+      transform: translateY(-1px);
+    }
+
+    .blog-list-item.active {
+      background: var(--primary);
+      color: #022c22;
+      border-color: rgba(0,0,0,0.18);
+      box-shadow: 0 4px 12px rgba(34,197,94,0.45);
+    }
+
+    .blog-empty-state {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .blog-content-inner {
+      font-size: 0.875rem;
+      line-height: 1.7;
+      color: var(--fg);
+    }
+
+    .blog-content-inner h1,
+    .blog-content-inner h2,
+    .blog-content-inner h3 {
+      margin-top: 0.8rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .blog-content-inner p + p {
+      margin-top: 0.4rem;
+    }
+
+    /* wrapper for each title + inline content */
+    .blog-list-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    /* inline card under each title */
+    .blog-inline-content {
+      display: none; /* only shown after click */
+      margin-top: 0.15rem;
+      padding: 0.5rem 0.6rem;
+      border-radius: 0.4rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    /* Dock (same design as home) */
+    .dock-shell {
+      pointer-events: none;
+      position: fixed;
+      inset-inline: 0;
+      bottom: 0;
+      z-index: 30;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      margin-bottom: 1rem;
+      max-height: 3.5rem;
+    }
+
+    .dock-blur {
+      position: fixed;
+      bottom: 0;
+      inset-inline: 0;
+      height: 4rem;
+      background: radial-gradient(ellipse at bottom,
+        rgba(15,23,42,1) 0%,
+        rgba(15,23,42,0) 70%);
+      backdrop-filter: blur(16px);
+    }
+
+    .light-theme .dock-blur {
+      background: radial-gradient(ellipse at bottom,
+        rgba(209,213,219,1) 0%,
+        rgba(209,213,219,0) 70%);
+    }
+
+    .dock-bar {
+      pointer-events: auto;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 0.25rem 0.25rem;
+      border-radius: 999px;
+      background: #020617;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: var(--shadow-soft);
+      gap: 0.25rem;
+    }
+
+    .light-theme .dock-bar {
+      background: #e5e7eb;
+      border: 1px solid rgba(15,23,42,0.12);
+    }
+
+    .dock-group {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .dock-icon-wrap {
+      position: relative; /* for tooltip */
+      display: flex;
+      width: 40px;
+      height: 40px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+    }
+
+    .dock-icon {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--fg);
+      text-decoration: none;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+
+    .dock-icon svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .dock-icon:hover {
+      background: #111827;
+      transform: translateY(-3px) scale(1.05);
+    }
+
+    .light-theme .dock-icon:hover {
+      background: #d1d5db;
+    }
+
+    .dock-divider {
+      width: 1px;
+      height: 100%;
+      background: rgba(148,163,184,0.4);
+      margin: 0 0.25rem;
+    }
+
+    .dock-theme-wrap {
+      position: relative; /* for tooltip */
+      display: flex;
+      width: 40px;
+      height: 40px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dock-theme-btn {
+      height: 36px;
+      width: 36px;
+      border-radius: 999px;
+      border: none;
+      background: #111827;
+      color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .light-theme .dock-theme-btn {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .dock-theme-btn:hover {
+      background: #1f2937;
+      transform: translateY(-2px);
+    }
+
+    .light-theme .dock-theme-btn:hover {
+      background: #d1d5db;
+    }
+
+    /* Tooltips for dock icons */
+    .dock-icon-wrap::after,
+    .dock-theme-wrap::after {
+      content: attr(data-label);
+      position: absolute;
+      left: 50%;
+      bottom: 52px;
+      transform: translateX(-50%) translateY(4px);
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--tooltip-bg);
+      color: #e5e7eb;
+      font-size: 0.65rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      border: 1px solid rgba(148,163,184,0.5);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+
+    .dock-icon-wrap::before,
+    .dock-theme-wrap::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 44px;
+      transform: translateX(-50%) translateY(4px);
+      border-width: 5px;
+      border-style: solid;
+      border-color: var(--tooltip-bg) transparent transparent transparent;
+      opacity: 0;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      pointer-events: none;
+    }
+
+    .dock-icon-wrap:hover::after,
+    .dock-icon-wrap:hover::before,
+    .dock-theme-wrap:hover::after,
+    .dock-theme-wrap:hover::before {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 600px) {
+      .dock-icon-wrap::after,
+      .dock-theme-wrap::after {
+        bottom: 46px;
+      }
+      .dock-icon-wrap::before,
+      .dock-theme-wrap::before {
+        bottom: 38px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section id="blog">
+      <div class="blog-layout">
+        <!-- Header -->
+        <div>
+          <h1>blog</h1>
+          <div class="blog-header-subtitle">
+            posts fetched from GitHub
+          </div>
+        </div>
+
+        <!-- Columns: list (right column is hidden via CSS) -->
+        <div class="blog-columns">
+          <!-- Left: list of posts -->
+          <div class="blog-list">
+            <div class="blog-list-title">posts</div>
+            <div id="posts-list" class="blog-list-items">
+              <div class="blog-empty-state">loading posts…</div>
+            </div>
+          </div>
+
+          <!-- Right: kept in DOM but hidden (display:none) -->
+          <div class="blog-content">
+            <div class="blog-content-inner">
+              <p class="blog-empty-state">
+                click a post title on the left – the content will appear right under that title.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Dock (same as home, no design change) -->
+  <div class="dock-shell">
+    <div class="dock-blur"></div>
+    <div class="dock-bar">
+      <div class="dock-group">
+        <div class="dock-icon-wrap" data-label="Home">
+          <a class="dock-icon" href="index.html">
+            <!-- Home icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+          </a>
+        </div>
+
+        <div class="dock-icon-wrap" data-label="Blog">
+          <a class="dock-icon" href="blog.html">
+            <!-- Notebook icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 6h4"></path>
+              <path d="M2 10h4"></path>
+              <path d="M2 14h4"></path>
+              <path d="M2 18h4"></path>
+              <rect width="16" height="20" x="4" y="2" rx="2"></rect>
+              <path d="M16 2v20"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="dock-divider"></div>
+
+      <div class="dock-group">
+        <div class="dock-icon-wrap" data-label="GitHub">
+          <a class="dock-icon" href="https://github.com/mehtab78" target="_blank">
+            GH
+          </a>
+        </div>
+        <div class="dock-icon-wrap" data-label="LinkedIn">
+          <a class="dock-icon" href="https://www.linkedin.com/in/mehtabahmad-s7" target="_blank">
+            in
+          </a>
+        </div>
+        <div class="dock-icon-wrap" data-label="X (Twitter)">
+          <a class="dock-icon" href="https://x.com/amritwt" target="_blank">
+            X
+          </a>
+        </div>
+        <div class="dock-icon-wrap" data-label="Email">
+          <a class="dock-icon" href="mailto:mehtab7@proton.me">
+            <!-- Mail icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="dock-divider"></div>
+
+      <div class="dock-theme-wrap" data-label="Theme">
+        <button
+          class="dock-theme-btn"
+          type="button"
+          onclick="toggleTheme()"
+          aria-label="Toggle theme"
+        >
+          ☾
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ---------- SHARED THEME LOGIC (same as home) ---------- */
+    const THEME_STORAGE_KEY = "mehtab-theme";
+
+    function applyTheme(theme) {
+      const root = document.documentElement;
+      const btn = document.querySelector(".dock-theme-btn");
+
+      if (theme === "light") {
+        root.classList.add("light-theme");
+        if (btn) {
+          btn.textContent = "☼";
+          btn.setAttribute("aria-label", "Switch to dark theme");
+        }
+      } else {
+        root.classList.remove("light-theme");
+        if (btn) {
+          btn.textContent = "☾";
+          btn.setAttribute("aria-label", "Switch to light theme");
+        }
+      }
+
+      try {
+        localStorage.setItem(THEME_STORAGE_KEY, theme);
+      } catch (e) {
+        // ignore storage errors
+      }
+    }
+
+    function toggleTheme() {
+      const isLight = document.documentElement.classList.contains("light-theme");
+      applyTheme(isLight ? "dark" : "light");
+    }
+
+    (function initTheme() {
+      let stored = null;
+      try {
+        stored = localStorage.getItem(THEME_STORAGE_KEY);
+      } catch (e) {
+        stored = null;
+      }
+
+      if (stored === "light" || stored === "dark") {
+        applyTheme(stored);
+      } else {
+        const prefersDark =
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches;
+        applyTheme(prefersDark ? "dark" : "light");
+      }
+    })();
+
+    /* ---------- BLOG + GITHUB INTEGRATION ---------- */
+
+    // TODO: replace this with your real posts.json raw URL
+    // e.g. "https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/posts.json"
+    const GITHUB_POSTS_INDEX_URL =
+      "https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/BRANCH/posts.json";
+
+    const postsListEl = document.getElementById("posts-list");
+
+    async function fetchJSON(url) {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      return res.json();
+    }
+
+    async function fetchText(url) {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      return res.text();
+    }
+
+    async function loadPostsIndex() {
+      try {
+        const posts = await fetchJSON(GITHUB_POSTS_INDEX_URL);
+        if (!Array.isArray(posts) || posts.length === 0) {
+          postsListEl.innerHTML =
+            '<div class="blog-empty-state">no posts found.</div>';
+          return;
+        }
+
+        postsListEl.innerHTML = "";
+        posts.forEach((post) => {
+          // wrapper for title + inline content
+          const row = document.createElement("div");
+          row.className = "blog-list-row";
+
+          const button = document.createElement("button");
+          button.className = "blog-list-item";
+          button.type = "button";
+          button.textContent = post.title || "untitled post";
+
+          const content = document.createElement("div");
+          content.className = "blog-inline-content";
+          content.setAttribute("data-open", "false");
+
+          button.addEventListener("click", async () => {
+            const isOpen = content.getAttribute("data-open") === "true";
+
+            // close all other open posts
+            document.querySelectorAll(".blog-inline-content").forEach((el) => {
+              el.style.display = "none";
+              el.setAttribute("data-open", "false");
+            });
+            document.querySelectorAll(".blog-list-item").forEach((el) => {
+              el.classList.remove("active");
+            });
+
+            // if this one was open, just close everything and stop
+            if (isOpen) {
+              return;
+            }
+
+            // open this one and load data below the title
+            if (post.url) {
+              button.classList.add("active");
+              content.style.display = "block";
+              content.setAttribute("data-open", "true");
+              content.innerHTML =
+                '<p class="blog-empty-state">loading…</p>';
+
+              try {
+                const html = await fetchText(post.url);
+                content.innerHTML =
+                  '<div class="blog-content-inner">' + html + "</div>";
+              } catch (err) {
+                console.error(err);
+                content.innerHTML =
+                  '<p class="blog-empty-state">failed to load this post.</p>';
+              }
+            }
+          });
+
+          row.appendChild(button);
+          row.appendChild(content);
+          postsListEl.appendChild(row);
+        });
+      } catch (err) {
+        console.error(err);
+        postsListEl.innerHTML =
+          '<div class="blog-empty-state">could not load posts from GitHub.</div>';
+      }
+    }
+
+    // Load the posts index after theme init
+    loadPostsIndex();
+  </script>
+</body>
+</html>
