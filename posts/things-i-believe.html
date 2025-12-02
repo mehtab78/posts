@@ -1,368 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blog Post Template</title>
-  <style>
-    /* This CSS matches your blog's inline content styling */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<h1>Things I Believe In</h1>
 
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.7;
-      color: #f9fafb;
-      background: #020617;
-      padding: 2rem;
-    }
+<p>These are the fundamental principles and beliefs that guide my life, shape my decisions, and define who I am.</p>
 
-    .blog-post-container {
-      max-width: 100%;
-      margin: 0 auto;
-    }
+<h2>On Personal Growth</h2>
 
-    /* Article Header */
-    .post-header {
-      margin-bottom: 2rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
+<h3>Embrace Continuous Learning</h3>
+<p>I believe that growth never stops. Every day presents an opportunity to learn something new, whether from success or failure. The moment we stop learning is the moment we stop living fully.</p>
 
-    .post-title {
-      font-size: 1.75rem;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      margin-bottom: 0.75rem;
-      line-height: 1.2;
-    }
+<h3>Failure is Feedback</h3>
+<p>I don't see failure as the opposite of success—I see it as part of success. Every setback teaches us something valuable if we're willing to listen and adapt.</p>
 
-    .post-meta {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      font-size: 0.75rem;
-      color: #9ca3af;
-    }
+<h2>On Relationships & Community</h2>
 
-    .post-meta-item {
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
+<h3>Authentic Connections Matter</h3>
+<p>In a world of surface-level interactions, I believe in the power of genuine relationships. Quality always trumps quantity when it comes to the people we surround ourselves with.</p>
 
-    .post-meta-item svg {
-      width: 14px;
-      height: 14px;
-    }
+<p>Here's what authentic relationships look like to me:</p>
+<ul>
+  <li>Being vulnerable and honest, even when it's uncomfortable</li>
+  <li>Showing up for people during their difficult times, not just celebrations</li>
+  <li>Listening with the intent to understand, not just to respond</li>
+  <li>Supporting others' growth without feeling threatened</li>
+</ul>
 
-    /* Content Typography */
-    .post-content h2 {
-      font-size: 1.35rem;
-      font-weight: 600;
-      margin-top: 1.75rem;
-      margin-bottom: 0.75rem;
-      letter-spacing: -0.02em;
-    }
+<h3>Kindness is Strength</h3>
+<p>Contrary to popular belief, kindness isn't weakness—it's one of the bravest things we can practice. It takes courage to be compassionate in a cynical world.</p>
 
-    .post-content h3 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-top: 1.5rem;
-      margin-bottom: 0.6rem;
-      color: #22c55e;
-    }
+<h2>On Work & Purpose</h2>
 
-    .post-content p {
-      font-size: 0.875rem;
-      line-height: 1.7;
-      margin-bottom: 1rem;
-      color: #e5e7eb;
-    }
+<h3>Action Over Perfection</h3>
+<p>I believe in the philosophy of "done is better than perfect". Waiting for perfect conditions means never starting. Progress comes from taking imperfect action and iterating.</p>
 
-    .post-content strong {
-      font-weight: 600;
-      color: #f9fafb;
-    }
+<h3>Purpose Over Profit</h3>
+<p>While financial success is important, I believe true fulfillment comes from work that matters. When we focus on creating value and serving others, success naturally follows.</p>
 
-    .post-content em {
-      font-style: italic;
-      color: #d1d5db;
-    }
+<h2>On Life Philosophy</h2>
 
-    /* Lists */
-    .post-content ul,
-    .post-content ol {
-      margin-left: 1.5rem;
-      margin-bottom: 1rem;
-    }
+<h3>Stay Curious</h3>
+<p>I believe curiosity is the antidote to judgment. When we approach situations with genuine curiosity rather than assumptions, we open ourselves to understanding and growth.</p>
 
-    .post-content li {
-      font-size: 0.875rem;
-      line-height: 1.7;
-      margin-bottom: 0.5rem;
-      color: #e5e7eb;
-    }
+<h3>Own Your Story</h3>
+<p>We can't control everything that happens to us, but we can control our response. I believe in taking responsibility for my life—the good, the bad, and everything in between.</p>
 
-    .post-content ul li {
-      list-style-type: disc;
-    }
+<h2>Moving Forward</h2>
 
-    .post-content ol li {
-      list-style-type: decimal;
-    }
+<p>These beliefs aren't fixed in stone—they evolve as I grow and learn. What remains constant is my commitment to living intentionally, treating others with respect, and contributing something meaningful to the world.</p>
 
-    /* Blockquotes */
-    .post-content blockquote {
-      margin: 1.5rem 0;
-      padding-left: 1rem;
-      border-left: 3px solid #22c55e;
-      color: #9ca3af;
-      font-style: italic;
-      font-size: 0.875rem;
-    }
-
-    /* Code blocks */
-    .post-content code {
-      background: #111827;
-      padding: 0.15rem 0.4rem;
-      border-radius: 0.25rem;
-      font-size: 0.8rem;
-      font-family: 'Courier New', monospace;
-      color: #22c55e;
-    }
-
-    .post-content pre {
-      background: #111827;
-      padding: 1rem;
-      border-radius: 0.5rem;
-      overflow-x: auto;
-      margin: 1rem 0;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .post-content pre code {
-      background: none;
-      padding: 0;
-      color: #e5e7eb;
-    }
-
-    /* Links */
-    .post-content a {
-      color: #60a5fa;
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.2s ease;
-    }
-
-    .post-content a:hover {
-      border-bottom-color: #60a5fa;
-    }
-
-    /* Images */
-    .post-content img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 0.5rem;
-      margin: 1.5rem 0;
-    }
-
-    /* Callout boxes */
-    .callout {
-      padding: 1rem;
-      border-radius: 0.5rem;
-      margin: 1.5rem 0;
-      border-left: 3px solid;
-      font-size: 0.875rem;
-    }
-
-    .callout-info {
-      background: rgba(96, 165, 250, 0.1);
-      border-color: #60a5fa;
-      color: #bfdbfe;
-    }
-
-    .callout-warning {
-      background: rgba(251, 191, 36, 0.1);
-      border-color: #fbbf24;
-      color: #fde68a;
-    }
-
-    .callout-success {
-      background: rgba(34, 197, 94, 0.1);
-      border-color: #22c55e;
-      color: #bbf7d0;
-    }
-
-    /* Divider */
-    .post-divider {
-      margin: 2rem 0;
-      border: none;
-      height: 1px;
-      background: rgba(255,255,255,0.1);
-    }
-
-    /* Tags */
-    .post-tags {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      margin-top: 2rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .tag {
-      padding: 0.25rem 0.75rem;
-      background: #111827;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 999px;
-      font-size: 0.7rem;
-      color: #9ca3af;
-    }
-
-    /* Responsive */
-    @media (max-width: 640px) {
-      .post-title {
-        font-size: 1.5rem;
-      }
-      
-      .post-content h2 {
-        font-size: 1.2rem;
-      }
-      
-      .post-content h3 {
-        font-size: 1rem;
-      }
-    }
-  </style>
-</head>
-<body>
-  <article class="blog-post-container">
-    <!-- Header with metadata -->
-    <header class="post-header">
-      <h1 class="post-title">Things I Believe In</h1>
-      <div class="post-meta">
-        <span class="post-meta-item">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-            <line x1="16" y1="2" x2="16" y2="6"></line>
-            <line x1="8" y1="2" x2="8" y2="6"></line>
-            <line x1="3" y1="10" x2="21" y2="10"></line>
-          </svg>
-          December 3, 2024
-        </span>
-        <span class="post-meta-item">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
-          5 min read
-        </span>
-      </div>
-    </header>
-
-    <!-- Main content -->
-    <div class="post-content">
-      <p>
-        These are the fundamental principles and beliefs that guide my life, shape my decisions, and define who I am. I've learned these through experience, reflection, and the wisdom of others.
-      </p>
-
-      <h2>On Personal Growth</h2>
-      
-      <h3>Embrace Continuous Learning</h3>
-      <p>
-        I believe that <strong>growth never stops</strong>. Every day presents an opportunity to learn something new, whether from success or failure. The moment we stop learning is the moment we stop living fully.
-      </p>
-
-      <div class="callout callout-info">
-        <strong>Key insight:</strong> The best investment you can make is in yourself. Knowledge compounds over time.
-      </div>
-
-      <h3>Failure is Feedback</h3>
-      <p>
-        I don't see failure as the opposite of success—I see it as <em>part of success</em>. Every setback teaches us something valuable if we're willing to listen and adapt.
-      </p>
-
-      <h2>On Relationships & Community</h2>
-
-      <h3>Authentic Connections Matter</h3>
-      <p>
-        In a world of surface-level interactions, I believe in the power of genuine relationships. Quality always trumps quantity when it comes to the people we surround ourselves with.
-      </p>
-
-      <p>Here's what authentic relationships look like to me:</p>
-      <ul>
-        <li>Being vulnerable and honest, even when it's uncomfortable</li>
-        <li>Showing up for people during their difficult times, not just celebrations</li>
-        <li>Listening with the intent to understand, not just to respond</li>
-        <li>Supporting others' growth without feeling threatened</li>
-      </ul>
-
-      <h3>Kindness is Strength</h3>
-      <p>
-        Contrary to popular belief, <strong>kindness isn't weakness</strong>—it's one of the bravest things we can practice. It takes courage to be compassionate in a cynical world.
-      </p>
-
-      <blockquote>
-        "No act of kindness, no matter how small, is ever wasted." — This principle has proven true time and time again in my life.
-      </blockquote>
-
-      <hr class="post-divider">
-
-      <h2>On Work & Purpose</h2>
-
-      <h3>Action Over Perfection</h3>
-      <p>
-        I believe in the philosophy of <code>done is better than perfect</code>. Waiting for perfect conditions means never starting. Progress comes from taking imperfect action and iterating.
-      </p>
-
-      <div class="callout callout-success">
-        <strong>Remember:</strong> Version 1.0 shipped beats Version 2.0 imagined every single time.
-      </div>
-
-      <h3>Purpose Over Profit</h3>
-      <p>
-        While financial success is important, I believe true fulfillment comes from work that <em>matters</em>. When we focus on creating value and serving others, success naturally follows.
-      </p>
-
-      <h2>On Life Philosophy</h2>
-
-      <h3>Stay Curious</h3>
-      <p>
-        I believe curiosity is the antidote to judgment. When we approach situations with genuine curiosity rather than assumptions, we open ourselves to understanding and growth.
-      </p>
-
-      <h3>Own Your Story</h3>
-      <p>
-        We can't control everything that happens to us, but we can control our response. I believe in taking responsibility for my life—the good, the bad, and everything in between.
-      </p>
-
-      <div class="callout callout-warning">
-        <strong>Important note:</strong> This doesn't mean blaming yourself for circumstances beyond your control. It means choosing how you respond to them.
-      </div>
-
-      <h2>Moving Forward</h2>
-      
-      <p>
-        These beliefs aren't fixed in stone—they evolve as I grow and learn. What remains constant is my commitment to living intentionally, treating others with respect, and contributing something meaningful to the world.
-      </p>
-
-      <p>
-        I share these not as prescriptions for how others should live, but as a reflection of what I've found to be true in my own journey. Your beliefs may differ, and that's perfectly okay. We all have our own path to walk.
-      </p>
-    </div>
-
-    <!-- Tags -->
-    <div class="post-tags">
-      <span class="tag">personal-growth</span>
-      <span class="tag">philosophy</span>
-      <span class="tag">life-lessons</span>
-      <span class="tag">values</span>
-    </div>
-  </article>
-</body>
-</html>
+<p>I share these not as prescriptions for how others should live, but as a reflection of what I've found to be true in my own journey.</p>
