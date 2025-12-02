@@ -51,11 +51,12 @@
       display: flex;
       justify-content: center;
       padding: 3rem 1.5rem;
+      padding-bottom: 6rem; /* Space for dock */
     }
 
     main {
       width: 100%;
-      max-width: 42rem;
+      max-width: 50rem; /* Increased from 42rem for better content display */
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -103,7 +104,7 @@
 
     /* Shared styles from home – keep design consistent */
     .hero-wrapper {
-      max-width: 42rem;
+      max-width: 50rem;
       margin: 0 auto;
     }
 
@@ -156,13 +157,38 @@
 
     .blog-columns {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column; /* Stack vertically by default */
       gap: 1.5rem;
+      width: 100%;
+    }
+
+    /* Desktop layout */
+    @media (min-width: 768px) {
+      .blog-columns {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+      
+      .blog-list {
+        flex: 0 0 14rem;
+        position: sticky;
+        top: 1rem;
+        max-height: calc(100vh - 8rem);
+        overflow-y: auto;
+      }
+      
+      .blog-posts-container {
+        flex: 1;
+        min-width: 0;
+      }
     }
 
     .blog-list {
-      flex: 1 1 12rem;
-      max-width: 14rem;
+      width: 100%;
+    }
+
+    .blog-posts-container {
+      width: 100%;
     }
 
     /* RIGHT BOX – now hidden, but kept for structure */
@@ -182,6 +208,7 @@
       font-size: 0.875rem;
       font-weight: 600;
       margin-bottom: 0.5rem;
+      color: var(--fg);
     }
 
     .blog-list-items {
@@ -201,6 +228,7 @@
       transition: background 0.15s ease, color 0.15s ease,
         border-color 0.15s ease, transform 0.12s ease;
       text-align: left;
+      width: 100%;
     }
 
     .blog-list-item:hover {
@@ -231,12 +259,99 @@
     .blog-content-inner h1,
     .blog-content-inner h2,
     .blog-content-inner h3 {
-      margin-top: 0.8rem;
-      margin-bottom: 0.4rem;
+      margin-top: 1.2rem;
+      margin-bottom: 0.6rem;
+      color: var(--fg);
+    }
+
+    .blog-content-inner h1 {
+      font-size: 1.75rem;
+    }
+
+    .blog-content-inner h2 {
+      font-size: 1.35rem;
+    }
+
+    .blog-content-inner h3 {
+      font-size: 1.1rem;
+      color: var(--primary);
+    }
+
+    .blog-content-inner p {
+      margin-bottom: 1rem;
+      color: var(--fg);
     }
 
     .blog-content-inner p + p {
       margin-top: 0.4rem;
+    }
+
+    .blog-content-inner ul,
+    .blog-content-inner ol {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .blog-content-inner li {
+      margin-bottom: 0.5rem;
+      color: var(--fg);
+    }
+
+    .blog-content-inner code {
+      background: var(--bg-accent);
+      padding: 0.15rem 0.4rem;
+      border-radius: 0.25rem;
+      font-size: 0.8rem;
+      font-family: 'Courier New', monospace;
+      color: var(--primary);
+    }
+
+    .blog-content-inner pre {
+      background: var(--bg-accent);
+      padding: 1rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      border: 1px solid var(--border);
+    }
+
+    .blog-content-inner pre code {
+      background: none;
+      padding: 0;
+      color: var(--fg);
+    }
+
+    .blog-content-inner blockquote {
+      margin: 1.5rem 0;
+      padding-left: 1rem;
+      border-left: 3px solid var(--primary);
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .blog-content-inner a {
+      color: #60a5fa;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s ease;
+    }
+
+    .blog-content-inner a:hover {
+      border-bottom-color: #60a5fa;
+    }
+
+    .blog-content-inner img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 0.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .blog-content-inner hr {
+      margin: 2rem 0;
+      border: none;
+      height: 1px;
+      background: var(--border);
     }
 
     /* wrapper for each title + inline content */
@@ -244,17 +359,57 @@
       display: flex;
       flex-direction: column;
       gap: 0.25rem;
+      width: 100%;
     }
 
-    /* inline card under each title */
+    /* inline card under each title - IMPROVED RESPONSIVE */
     .blog-inline-content {
-      display: none; /* only shown after click */
-      margin-top: 0.15rem;
-      padding: 0.5rem 0.6rem;
-      border-radius: 0.4rem;
+      display: none;
+      margin-top: 0.5rem;
+      padding: 1.25rem;
+      border-radius: 0.5rem;
       background: var(--bg-card);
       border: 1px solid var(--border);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      max-height: 80vh;
+    }
+
+    /* Mobile: full width content */
+    @media (max-width: 767px) {
+      .blog-inline-content {
+        padding: 1rem;
+        margin-left: 0;
+        margin-right: 0;
+      }
+      
+      body {
+        padding: 2rem 1rem;
+        padding-bottom: 6rem;
+      }
+      
+      .blog-content-inner h1 {
+        font-size: 1.5rem;
+      }
+      
+      .blog-content-inner h2 {
+        font-size: 1.2rem;
+      }
+      
+      .blog-content-inner h3 {
+        font-size: 1rem;
+      }
+    }
+
+    /* Desktop: content spans full width minus sidebar */
+    @media (min-width: 768px) {
+      .blog-inline-content {
+        padding: 1.5rem;
+        max-height: none;
+      }
     }
 
     /* Dock (same design as home) */
@@ -313,7 +468,7 @@
     }
 
     .dock-icon-wrap {
-      position: relative; /* for tooltip */
+      position: relative;
       display: flex;
       width: 40px;
       height: 40px;
@@ -358,7 +513,7 @@
     }
 
     .dock-theme-wrap {
-      position: relative; /* for tooltip */
+      position: relative;
       display: flex;
       width: 40px;
       height: 40px;
@@ -449,6 +604,25 @@
         bottom: 38px;
       }
     }
+
+    /* Scrollbar styling for content */
+    .blog-inline-content::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .blog-inline-content::-webkit-scrollbar-track {
+      background: var(--bg-accent);
+      border-radius: 4px;
+    }
+
+    .blog-inline-content::-webkit-scrollbar-thumb {
+      background: var(--muted);
+      border-radius: 4px;
+    }
+
+    .blog-inline-content::-webkit-scrollbar-thumb:hover {
+      background: var(--fg);
+    }
   </style>
 </head>
 <body>
@@ -463,7 +637,7 @@
           </div>
         </div>
 
-        <!-- Columns: list (right column is hidden via CSS) -->
+        <!-- Columns: list + posts container -->
         <div class="blog-columns">
           <!-- Left: list of posts -->
           <div class="blog-list">
@@ -471,6 +645,11 @@
             <div id="posts-list" class="blog-list-items">
               <div class="blog-empty-state">loading posts…</div>
             </div>
+          </div>
+
+          <!-- Right: container for all post content (hidden on desktop, shown on mobile) -->
+          <div class="blog-posts-container" id="posts-container">
+            <!-- Posts will be dynamically inserted here -->
           </div>
 
           <!-- Right: kept in DOM but hidden (display:none) -->
@@ -493,7 +672,6 @@
       <div class="dock-group">
         <div class="dock-icon-wrap" data-label="Home">
           <a class="dock-icon" href="index.html">
-            <!-- Home icon -->
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round"
               stroke-linejoin="round">
@@ -505,7 +683,6 @@
 
         <div class="dock-icon-wrap" data-label="Blog">
           <a class="dock-icon" href="blog.html">
-            <!-- Notebook icon -->
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round">
@@ -540,7 +717,6 @@
         </div>
         <div class="dock-icon-wrap" data-label="Email">
           <a class="dock-icon" href="mailto:mehtab7@proton.me">
-            <!-- Mail icon -->
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round">
@@ -620,8 +796,6 @@
 
     /* ---------- BLOG + GITHUB INTEGRATION ---------- */
 
-    // TODO: replace this with your real posts.json raw URL
-    // e.g. "https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/posts.json"
     const GITHUB_POSTS_INDEX_URL =
       "https://raw.githubusercontent.com/mehtab78/posts/refs/heads/master/posts.json";
 
